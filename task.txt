@@ -1,0 +1,54 @@
+
+TO DO
+
+--Obtener la imagen del  empleado de sap y mostrarla en el navegador
+\\192.168.10.211\Anexos_SAP\Images\luis arias.PNG
+
+
+
+
+
+
+--VISTA CALCULADA SAP HANA
+*CLIENTES_ASESOR*
+
+SELECT 
+ DISTINCT(T0."CardCode")"CardCode",
+CASE WHEN (COALESCE(LENGTH(T0."FatherCard"), 0) = 0 AND COALESCE(LENGTH(T0."U_SnConsolidadoMilan"), 0) = 0) THEN 'Padre'
+ELSE 'Hijo' END AS "Tipo",
+CASE WHEN (COALESCE(LENGTH(T0."FatherCard"), 0) = 0 AND COALESCE(LENGTH(T0."U_SnConsolidadoMilan"), 0) = 0) THEN T0."CardCode"
+ELSE CASE WHEN (COALESCE(LENGTH(T0."FatherCard"), 0) = 0) THEN T0."U_SnConsolidadoMilan" ELSE T0."FatherCard" END END AS "Padre",
+T0."CardName", 
+(CASE WHEN(T0."validFor"='Y')THEN('SI')ELSE('NO')END)"Activo",
+T0."GroupCode",(SELECT T5."GroupName" FROM OCRG T5 WHERE T5."GroupCode"=T0."GroupCode") as "Grupo",
+T0."frozenFor" AS "Inactivo", 
+T7."Name"AS"Municipio",
+T0."Address" AS "Dirección", T4."descript" as "Nombre Zona", CASE WHEN (T0."QryGroup31" = 'Y') THEN ('SI') ELSE ('NO') END "Auditada Zona"
+, T2."SlpCode"
+,T6."empID"
+,T2."SlpName" "Asesor"
+,T6."picture"
+--,T6."salesPrson"
+,T8."USER_CODE"
+FROM OCRD T0  
+LEFT JOIN "@HBT_MUNICIPIO" T7 ON T0."U_HBT_MunMed"=T7."Code"
+LEFT JOIN OTER T4 ON T0."Territory" = T4."territryID" 
+INNER JOIN OCTG T1 ON T0."GroupNum" = T1."GroupNum" 
+INNER JOIN OSLP T2 ON T0."SlpCode" = T2."SlpCode"
+LEFT JOIN "@MIL_ABCCLIENTES" T3 ON T0."CardCode"=T3."U_CardCode"
+INNER JOIN OPLN T5 ON T0."ListNum" = T5."ListNum"
+INNER JOIN OHEM T6 ON T6."salesPrson" = T2."SlpCode"
+INNER JOIN OUSR T8 ON T6."userId" = T8."USERID"
+WHERE T0."CardType" = 'C'
+and T8."USER_CODE" = '1102367438'
+ORDER BY T0."CardCode"
+
+
+
+
+
+
+
+
+
+
