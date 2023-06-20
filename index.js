@@ -1,6 +1,6 @@
 import  https from 'https';
 import path from "path";
-import express from 'express';
+import express, { json } from 'express';
 // import fs from 'fs';
 // import  out  from './output.json' assert {type: 'json'};
 // import  AlertManagements  from './resource/AlertManagements.json' assert {type: 'json'};
@@ -102,15 +102,14 @@ app.post("/clientes", (req,res)=>{
 })
 
 app.post("/clientes/owner", (req,res)=>{
-    // let datos = req.body;
-    // let user_code = datos.user_code;
+    let datos = req.body;
+    let clientes = datos.clientes;
+    let empID = datos.empID;
+    let salesPrson = datos.salesPrson;
 
     Reqlogin().then((resp)=>{
 
         console.log('clientes/owner :>> ');
-
-        const cnl = '000000000000802'
-
         sesion.cookieId = "B1SESSION=" + resp.SessionId;
 
         var options = {
@@ -123,20 +122,30 @@ app.post("/clientes/owner", (req,res)=>{
             , body: JSON.stringify(
                 {
                     // "Phone1": "7859508001"
-                    "OwnerCode": -1,
-                    "SalesPersonCode": -1   //-1 sin propietario
+                    "OwnerCode": empID,
+                    "SalesPersonCode": salesPrson   //-1 sin propietario
                 }
             )
         }
+        
+        var x;
+        clientes.forEach(cliente => {
+            // console.log(cliente);
+            let urlClientes_change_owner = "https://192.168.10.201:50000/b1s/v1/BusinessPartners('"+cliente+"')";
 
-        // const urlClientes_change_owner = "https://192.168.10.201:50000/b1s/v1/BusinessPartners('CNL1007182842')";
-        const urlClientes_change_owner = "https://192.168.10.201:50000/b1s/v1/BusinessPartners('"+cnl+"')";
+            fetch(urlClientes_change_owner,options).then((resp1)=>{
+                res.send(JSON.stringify(resp1) );
+                // console.log(resp1);
+                // x=resp1;
+            }).catch(err=>{console.log(err)})
+        });
 
-        fetch(urlClientes_change_owner,options).then((data)=>{//.then((resp)=>resp.json())
-            // res.send(data);
-            console.log(data);
+        // console.log('X'+x);
 
-        }).catch(err=>{console.log(err)})
+        // fetch(urlClientes_change_owner,options).then((data)=>{//.then((resp)=>resp.json())
+        //     // res.send(data);
+        //     console.log(data);
+        // }).catch(err=>{console.log(err)})
 
     }).catch(err=>{console.log(err)})
 })
