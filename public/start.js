@@ -63,10 +63,12 @@ function get_asesores() {
 		// console.log(str);
 		Sbody.innerHTML = str;//agregamos la variable str al cuerpo de la comboBox
 		Sbody2.innerHTML = str;//agregamos la variable str al cuerpo de la comboBox
+
+		console.log(data);
 	})
 }
 
-function get_clientes(elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CODE,name_asesor) {
+function get_clientes(elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CODE,name_asesor,Sucursal) {
 
 	document.getElementById(table).innerHTML = '';
 	var u_code =JSON.parse(document.getElementById(select).value);
@@ -117,7 +119,7 @@ function get_clientes(elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CO
 			if(table == 'tabla1'){
 				b1=true;
 
-				let parametros = {elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CODE,name_asesor}
+				let parametros = {elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CODE,name_asesor,Sucursal}
 				params.push(parametros);
 
 				// if(b1 == true && b2 == true){
@@ -142,6 +144,7 @@ function get_clientes(elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CO
 				document.getElementById('Ncnl_asesor').innerHTML = data.value.length+' Clientes encontrados';
 				document.getElementById(USER_CODE).innerHTML = 'Usuario sap: '+u_code.USER_CODE;
 				document.getElementById(SalesPrson).innerHTML = 'SalesPrson: '+u_code.salesPrson;
+				document.getElementById(Sucursal).innerHTML = 'Sucursal: '+u_code.Sucursal;
 				document.getElementById(empID).innerHTML = 'empID: '+u_code.empID;
 				// document.getElementById('name_asesor').innerText = elemento.options[elemento.selectedIndex].text;//obtinene el texto del elemento seleccionado
 				document.getElementById('name_asesor').innerText = u_code.U_NAME;
@@ -149,7 +152,7 @@ function get_clientes(elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CO
 				tbody.innerHTML = str;//agregamos la variable str al cuerpo de la tabla
 			}else{
 				b2=true;
-				let parametros = {elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CODE,name_asesor}
+				let parametros = {elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CODE,name_asesor,Sucursal}
 				params.push(parametros);
 
 				total_clientes2 = data.value.length;
@@ -171,6 +174,7 @@ function get_clientes(elemento,table,select,Ncnl_asesor,SalesPrson,empID,USER_CO
 				document.getElementById(USER_CODE).innerHTML = 'Usuario sap:: '+u_code.USER_CODE;
 				document.getElementById('name_asesor2').innerText = u_code.U_NAME;
 				document.getElementById(SalesPrson).innerHTML = 'SalesPrson: '+u_code.salesPrson;
+				document.getElementById(Sucursal).innerHTML = 'Sucursal: '+u_code.Sucursal;
 				document.getElementById(empID).innerHTML = 'empID: '+u_code.empID;
 				// document.getElementById('name_asesor2').innerText = elemento.options[elemento.selectedIndex].text;//obtinene el texto del elemento seleccionado
 				tbody.innerHTML = str;//agregamos la variable str al cuerpo de la tabla
@@ -204,9 +208,6 @@ function getCodeCNL() {//obtener el código de los clientes seleccionados
 }
 
 function change_owner() {
-	// alert('cambio de propietario');
-
-
 
 	getCodeCNL();
 
@@ -231,8 +232,8 @@ function change_owner() {
 				// $("#options_select2").dblclick();
 
 				//volver a cargar los clientes
-				get_clientes(params[0].elemento,params[0].table,params[0].select,params[0].Ncnl_asesor,params[0].SalesPrson,params[0].empID,params[0].USER_CODE,params[0].name_asesor)
-				get_clientes(params[1].elemento,params[1].table,params[1].select,params[1].Ncnl_asesor,params[1].SalesPrson,params[1].empID,params[1].USER_CODE,params[1].name_asesor)
+				get_clientes(params[0].elemento,params[0].table,params[0].select,params[0].Ncnl_asesor,params[0].SalesPrson,params[0].empID,params[0].USER_CODE,params[0].name_asesor,params[0].Sucursal)
+				get_clientes(params[1].elemento,params[1].table,params[1].select,params[1].Ncnl_asesor,params[1].SalesPrson,params[1].empID,params[1].USER_CODE,params[1].name_asesor,params[1].Sucursal)
 				showToast_G();
 			
 			}
@@ -240,7 +241,7 @@ function change_owner() {
 			showToast_E
 		})
 	}else{
-		showToast_E();
+		// showToast_E();
 	}
 	
 

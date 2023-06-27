@@ -144,7 +144,7 @@
                   <button id="test" onclick="x()">test</button>
 
                   <select
-                    onchange="get_clientes(this,'tabla1','options_select','Ncnl_asesor','SalesPrson','empID','USER_CODE','name_asesor')"
+                    onchange="get_clientes(this,'tabla1','options_select','Ncnl_asesor','SalesPrson','empID','USER_CODE','name_asesor','Sucursal')"
                     id="options_select" class="form-select" aria-label="Default select example">
                   </select>
                   <br>
@@ -164,7 +164,7 @@
                             <p id="name_asesor" class="card-text">Nombre</p>
                           </h5>
                           <p id="USER_CODE" class="card-text">Usuario sap:</p>
-                          <p class="card-text">Sucursal</p>
+                          <p id="Sucursal" class="card-text">Sucursal</p>
                           <p id="SalesPrson" class="card-text">SalesPrson</p>
                           <p id="empID" class="card-text">empID</p>
                           <p id="Ncnl_asesor" class="card-text"><small class="text-muted">#</small></p>
@@ -265,7 +265,7 @@
                   <!-- <button onclick="get_clientes()">test</button> -->
 
                   <select
-                    onchange="get_clientes(this,'tabla2','options_select2','Ncnl_asesor2','SalesPrson2','empID2','USER_CODE2','name_asesor2')"
+                    onchange="get_clientes(this,'tabla2','options_select2','Ncnl_asesor2','SalesPrson2','empID2','USER_CODE2','name_asesor2','Sucursal2')"
                     id="options_select2" class="form-select" aria-label="Default select example">
                   </select>
 
@@ -289,7 +289,7 @@
                             <p id="name_asesor2" class="card-text">Nombre</p>
                           </h5>
                           <p id="USER_CODE2" class="card-text">Usuario sap:</p>
-                          <p class="card-text">Sucursal</p>
+                          <p id="Sucursal2" class="card-text">Sucursal</p>
                           <p id="SalesPrson2" class="card-text">SalesPrson</p>
                           <p id="empID2" class="card-text">empID</p>
                           <p id="Ncnl_asesor2" class="card-text"><small class="text-muted">#</small></p>
@@ -319,7 +319,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">CNL</th>
-                    <th scope="col">Transferir</th>
+                    <th scope="col">...</th>
                   </tr>
                 </thead>
                 <tbody id="tabla2">
